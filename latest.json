@@ -1,0 +1,325 @@
+{
+ "updated_at": "2026-11-03T03:38:08.847Z",
+ "date": "2026-11-03",
+ "platforms": [
+  "instagram",
+  "tiktok",
+  "youtube",
+  "x",
+  "facebook"
+ ],
+ "people": [
+  {
+   "id": "baitoey",
+   "name": "ใบเตย สายรุ้ง (ตัวอย่าง)",
+   "name_en": "Baitoey Sairung",
+   "category": "นักแสดง",
+   "handles": {
+    "instagram": "sample.baitoey",
+    "tiktok": "sample.baitoey",
+    "youtube": "",
+    "x": "sample_baitoey",
+    "facebook": "sample.baitoey"
+   },
+   "counts": {
+    "instagram": 12400000,
+    "tiktok": 6800000,
+    "youtube": null,
+    "x": 2100000,
+    "facebook": 4300000
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "x": "manual",
+    "facebook": "manual"
+   }
+  },
+  {
+   "id": "kawin",
+   "name": "กวิน ธารา (ตัวอย่าง)",
+   "name_en": "Kawin Thara",
+   "category": "นักแสดง",
+   "handles": {
+    "instagram": "sample.kawin",
+    "tiktok": "sample.kawin",
+    "youtube": "",
+    "x": "sample_kawin",
+    "facebook": ""
+   },
+   "counts": {
+    "instagram": 9800000,
+    "tiktok": 5200000,
+    "youtube": null,
+    "x": 3400000,
+    "facebook": null
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "x": "manual"
+   }
+  },
+  {
+   "id": "mint-orbit",
+   "name": "มิ้นท์ ออร์บิท (ตัวอย่าง)",
+   "name_en": "Mint Orbit",
+   "category": "ศิลปิน T-pop",
+   "handles": {
+    "instagram": "sample.mintorbit",
+    "tiktok": "sample.mintorbit",
+    "youtube": "sample.mintorbit",
+    "x": "sample_mintorbit",
+    "facebook": ""
+   },
+   "counts": {
+    "instagram": 4600000,
+    "tiktok": 7900000,
+    "youtube": 1250000,
+    "x": 1800000,
+    "facebook": null
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api",
+    "x": "manual"
+   }
+  },
+  {
+   "id": "novah",
+   "name": "โนวา ฮาร์ท (ตัวอย่าง)",
+   "name_en": "Nova Heart",
+   "category": "ศิลปิน T-pop",
+   "handles": {
+    "instagram": "sample.novaheart",
+    "tiktok": "sample.novaheart",
+    "youtube": "sample.novaheart",
+    "x": "sample_novaheart",
+    "facebook": "sample.novaheart"
+   },
+   "counts": {
+    "instagram": 3100000,
+    "tiktok": 4400000,
+    "youtube": 860000,
+    "x": 2600000,
+    "facebook": 1500000
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api",
+    "x": "manual",
+    "facebook": "manual"
+   }
+  },
+  {
+   "id": "chompoo-beauty",
+   "name": "ชมพู่ บิวตี้แล็บ (ตัวอย่าง)",
+   "name_en": "Chompoo Beauty Lab",
+   "category": "บิวตี้",
+   "handles": {
+    "instagram": "sample.chompoo",
+    "tiktok": "sample.chompoo",
+    "youtube": "sample.chompoolab",
+    "x": "",
+    "facebook": "sample.chompoo"
+   },
+   "counts": {
+    "instagram": 2700000,
+    "tiktok": 5600000,
+    "youtube": 3100000,
+    "x": null,
+    "facebook": 1900000
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api",
+    "facebook": "manual"
+   }
+  },
+  {
+   "id": "pond-review",
+   "name": "ปอนด์ รีวิวทุกอย่าง (ตัวอย่าง)",
+   "name_en": "Pond Reviews",
+   "category": "ไลฟ์สไตล์",
+   "handles": {
+    "instagram": "sample.pondreview",
+    "tiktok": "sample.pondreview",
+    "youtube": "sample.pondreview",
+    "x": "",
+    "facebook": "sample.pondreview"
+   },
+   "counts": {
+    "instagram": 980000,
+    "tiktok": 3300000,
+    "youtube": 2400000,
+    "x": null,
+    "facebook": 2200000
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api",
+    "facebook": "manual"
+   }
+  },
+  {
+   "id": "gamer-tong",
+   "name": "ต้องเกมเมอร์ (ตัวอย่าง)",
+   "name_en": "Tong Gamer",
+   "category": "เกมเมอร์",
+   "handles": {
+    "instagram": "sample.tonggamer",
+    "tiktok": "sample.tonggamer",
+    "youtube": "sample.tonggamer",
+    "x": "sample_tonggamer",
+    "facebook": "sample.tonggamer"
+   },
+   "counts": {
+    "instagram": 640000,
+    "tiktok": 2100000,
+    "youtube": 8700000,
+    "x": 520000,
+    "facebook": 3600000
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api",
+    "x": "manual",
+    "facebook": "manual"
+   }
+  },
+  {
+   "id": "kin-yang",
+   "name": "กินยัง กับ แพรว (ตัวอย่าง)",
+   "name_en": "Kin Yang with Praew",
+   "category": "อาหาร",
+   "handles": {
+    "instagram": "sample.kinyang",
+    "tiktok": "sample.kinyang",
+    "youtube": "sample.kinyang",
+    "x": "",
+    "facebook": "sample.kinyang"
+   },
+   "counts": {
+    "instagram": 1500000,
+    "tiktok": 6100000,
+    "youtube": 4200000,
+    "x": null,
+    "facebook": 5100000
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api",
+    "facebook": "manual"
+   }
+  },
+  {
+   "id": "ploy-travel",
+   "name": "พลอย เที่ยวทั่วไทย (ตัวอย่าง)",
+   "name_en": "Ploy Travels",
+   "category": "ไลฟ์สไตล์",
+   "handles": {
+    "instagram": "sample.ploytravel",
+    "tiktok": "sample.ploytravel",
+    "youtube": "sample.ploytravel",
+    "x": "",
+    "facebook": ""
+   },
+   "counts": {
+    "instagram": 1200000,
+    "tiktok": 1800000,
+    "youtube": 950000,
+    "x": null,
+    "facebook": null
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api"
+   }
+  },
+  {
+   "id": "mukda-comedy",
+   "name": "มุกดา ฮาไม่หยุด (ตัวอย่าง)",
+   "name_en": "Mukda Comedy",
+   "category": "คอมเมดี้",
+   "handles": {
+    "instagram": "sample.mukda",
+    "tiktok": "sample.mukda",
+    "youtube": "sample.mukda",
+    "x": "",
+    "facebook": "sample.mukda"
+   },
+   "counts": {
+    "instagram": 870000,
+    "tiktok": 9400000,
+    "youtube": 1600000,
+    "x": null,
+    "facebook": 2800000
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api",
+    "facebook": "manual"
+   }
+  },
+  {
+   "id": "tarn",
+   "name": "ธาร พิมพ์ใจ (ตัวอย่าง)",
+   "name_en": "Tarn Pimjai",
+   "category": "นักแสดง",
+   "handles": {
+    "instagram": "sample.tarn",
+    "tiktok": "sample.tarn",
+    "youtube": "",
+    "x": "sample_tarn",
+    "facebook": ""
+   },
+   "counts": {
+    "instagram": 6300000,
+    "tiktok": 2900000,
+    "youtube": null,
+    "x": 1100000,
+    "facebook": null
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "x": "manual"
+   }
+  },
+  {
+   "id": "lukkaew",
+   "name": "ลูกแก้ว ดวงดี (ตัวอย่าง)",
+   "name_en": "Lukkaew Duangdee",
+   "category": "ไลฟ์สไตล์",
+   "handles": {
+    "instagram": "sample.lukkaew",
+    "tiktok": "sample.lukkaew",
+    "youtube": "sample.lukkaew",
+    "x": "",
+    "facebook": "sample.lukkaew"
+   },
+   "counts": {
+    "instagram": 450000,
+    "tiktok": 1300000,
+    "youtube": 380000,
+    "x": null,
+    "facebook": 690000
+   },
+   "source": {
+    "instagram": "api",
+    "tiktok": "manual",
+    "youtube": "api",
+    "facebook": "manual"
+   }
+  }
+ ],
+ "sample": true
+}

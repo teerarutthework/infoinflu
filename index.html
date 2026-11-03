@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="th">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ฟอลบอร์ด</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="จัดอันดับยอดผู้ติดตามดาราและอินฟลูเอนเซอร์ไทย อัปเดตทุกวัน">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,700;1,800&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: music-chart style ranking board — one bold "No.1" hero, then a dense scannable list that expands in place */
+:root {
+  --bg: #F4F3F8;
+  --surface: #FFFFFF;
+  --ink: #17141F;
+  --muted: #6A6477;
+  --line: #E2DFEA;
+  --accent: #D11F69;
+  --accent-soft: #FBE4EE;
+  --up: #0B7F57;
+  --down: #B9420E;
+  --ig: #C13584; --tiktok: #17141F; --youtube: #E1251B; --x: #4A4553; --facebook: #1877F2;
+  --font-display: "Kanit", "IBM Plex Sans Thai", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans Thai", "Noto Sans Thai", system-ui, sans-serif;
+  --font-num: "IBM Plex Mono", ui-monospace, monospace;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111017; --surface: #1A1822; --ink: #F1EEF6; --muted: #A39CB1; --line: #2B2735;
+  --accent: #FF5C9A; --accent-soft: #3B1828; --up: #3DD69B; --down: #FF8F5E;
+  --tiktok: #E9E6EF; --x: #CFCAD8; --facebook: #4B9BFF; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #111017; --surface: #1A1822; --ink: #F1EEF6; --muted: #A39CB1; --line: #2B2735;
+  --accent: #FF5C9A; --accent-soft: #3B1828; --up: #3DD69B; --down: #FF8F5E;
+  --tiktok: #E9E6EF; --x: #CFCAD8; --facebook: #4B9BFF; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 56px; display: flex; flex-direction: column; gap: 24px; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+
+/* header */
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 24px; }
+.brand { font-family: var(--font-display); font-weight: 800; font-style: italic; font-size: clamp(34px, 7vw, 52px); line-height: 1; letter-spacing: -0.01em; margin: 0; }
+.brand span { color: var(--accent); }
+.tagline { margin: 6px 0 0; color: var(--muted); }
+.stamp { color: var(--muted); font-size: 13px; text-align: right; }
+.stamp b { color: var(--ink); font-weight: 600; }
+
+.notice { background: var(--accent-soft); border-radius: 10px; padding: 10px 14px; font-size: 14px; }
+.notice b { color: var(--accent); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: auto 1fr; gap: 4px 20px; align-items: center; padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.hero-rank { font-family: var(--font-display); font-style: italic; font-weight: 800; font-size: clamp(64px, 14vw, 112px); line-height: .85; color: var(--accent); grid-row: span 3; }
+.hero-label { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.hero-name { font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 4.2vw, 32px); line-height: 1.15; text-wrap: balance; min-width: 0; }
+.hero-count { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+.hero-count .num { font-size: clamp(20px, 4vw, 26px); font-weight: 600; }
+
+/* controls */
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: none; display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 500; }
+.tab[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--c, var(--accent)); }
+.tab[aria-pressed="true"] .dot { box-shadow: 0 0 0 2px var(--bg); }
+.filters { display: flex; flex-wrap: wrap; gap: 10px; }
+.filters select, .filters input { padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
+.filters input { flex: 1 1 220px; min-width: 0; }
+
+/* list */
+.list-head, .row-main { display: grid; grid-template-columns: 42px 48px minmax(0, 1fr) 118px 92px 100px; gap: 12px; align-items: center; }
+.list-head { padding: 0 14px 6px; font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+.list-head .r { text-align: right; }
+ol.list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+ol.list > li + li { border-top: 1px solid var(--line); }
+.row-main { width: 100%; padding: 12px 14px; background: none; border: 0; text-align: left; cursor: pointer; }
+.row-main:hover { background: color-mix(in srgb, var(--accent-soft) 45%, transparent); }
+.rank { font-family: var(--font-display); font-style: italic; font-weight: 700; font-size: 26px; line-height: 1; text-align: center; }
+li:nth-child(-n+3) .rank { color: var(--accent); }
+.move { font-size: 12px; font-weight: 600; text-align: center; white-space: nowrap; }
+.move.up { color: var(--up); } .move.down { color: var(--down); } .move.same { color: var(--muted); }
+.move.new { color: var(--accent); letter-spacing: .06em; }
+.who { min-width: 0; display: flex; align-items: center; gap: 12px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; flex: none; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 16px; background: var(--accent-soft); color: var(--accent); }
+.who-text { min-width: 0; }
+.name { display: block; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.meta { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.meta .dots { display: inline-flex; gap: 4px; }
+.meta .dot { width: 7px; height: 7px; }
+.count { text-align: right; font-weight: 600; font-size: 16px; }
+.delta { text-align: right; font-size: 13px; }
+.delta .pct { display: block; color: var(--muted); font-size: 12px; }
+.pos { color: var(--up); } .neg { color: var(--down); } .zero { color: var(--muted); }
+.spark { width: 100px; height: 32px; display: block; }
+.empty { padding: 28px; text-align: center; color: var(--muted); }
+
+/* detail */
+.detail { padding: 4px 14px 18px; display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 20px; }
+.detail[hidden] { display: none !important; }
+.plat-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.plat-table td { padding: 7px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.plat-table td:last-child { text-align: right; }
+.plat-table a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; }
+.plat-table a:hover { color: var(--accent); }
+.plat-table .handle { color: var(--muted); font-size: 12px; display: block; padding-left: 16px; }
+.src { font-size: 11px; color: var(--muted); display: block; }
+.chart-box { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.chart-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: none; padding: 4px 10px; cursor: pointer; font-size: 13px; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.chart { width: 100%; height: auto; display: block; overflow: visible; }
+.chart text { fill: var(--muted); font-family: var(--font-num); font-size: 11px; }
+.readout { font-size: 13px; min-height: 1.5em; }
+
+footer { color: var(--muted); font-size: 13px; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--line); padding-top: 16px; }
+footer p { margin: 0; max-width: 70ch; }
+
+@media (max-width: 720px) {
+  .list-head { display: none; }
+  .row-main { grid-template-columns: 34px minmax(0, 1fr) auto; grid-template-areas: "rank who count" "move who delta"; row-gap: 2px; }
+  .rank { grid-area: rank; font-size: 22px; } .move { grid-area: move; }
+  .who { grid-area: who; } .count { grid-area: count; } .delta { grid-area: delta; }
+  .delta .pct { display: inline; margin-left: 4px; }
+  .spark-cell { display: none; }
+  .avatar { width: 34px; height: 34px; font-size: 14px; }
+  .who { gap: 10px; } .count { font-size: 15px; }
+  .detail { grid-template-columns: 1fr; }
+  .stamp { text-align: left; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .detail:not([hidden]) { animation: open .18s ease-out; }
+  @keyframes open { from { opacity: .4; transform: translateY(-4px); } }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 class="brand">ฟอล<span>บอร์ด</span></h1>
+      <p class="tagline">จัดอันดับยอดผู้ติดตามดาราและอินฟลูเอนเซอร์ไทย</p>
+    </div>
+    <div class="stamp" id="stamp">กำลังโหลดข้อมูล…</div>
+  </header>
+
+  <div class="notice" id="sample-note" hidden>
+    <b>ข้อมูลตัวอย่าง</b> รายชื่อและตัวเลขในหน้านี้สมมติขึ้นเพื่อทดลองหน้าตาเว็บ เมื่อใส่รายชื่อจริงแล้ว ระบบจะล้างข้อมูลตัวอย่างให้เอง
+  </div>
+
+  <section class="hero" id="hero" aria-live="polite"></section>
+
+  <section class="controls" aria-label="ตัวกรอง">
+    <div class="tabs" id="tabs" role="group" aria-label="แพลตฟอร์ม"></div>
+    <div class="filters">
+      <select id="category" aria-label="หมวดหมู่"><option value="">ทุกหมวด</option></select>
+      <input id="search" type="search" placeholder="ค้นหาชื่อหรือบัญชี" aria-label="ค้นหา">
+    </div>
+  </section>
+
+  <section aria-label="อันดับ">
+    <div class="list-head" aria-hidden="true">
+      <span>อันดับ</span><span>7 วัน</span><span>ชื่อ</span><span class="r">ผู้ติดตาม</span><span class="r">เพิ่มใน 7 วัน</span><span class="r">30 วันล่าสุด</span>
+    </div>
+    <ol class="list" id="list"></ol>
+  </section>
+
+  <footer>
+    <p>"รวม" คือผลบวกผู้ติดตามทุกแพลตฟอร์ม คนเดียวกันอาจติดตามหลายช่องทาง ตัวเลขจริงจึงอาจน้อยกว่านี้</p>
+    <p>YouTube ปัดยอดผู้ติดตามเป็นเลขย่อ ส่วนแพลตฟอร์มที่ระบุว่า "กรอกเอง" อัปเดตตามรอบที่ผู้ดูแลกรอก</p>
+  </footer>
+</div>
+
+<script>
+const PLAT = {
+  all:       { label: 'รวมทุกช่องทาง', short: 'รวม', color: 'var(--accent)' },
+  instagram: { label: 'Instagram', short: 'IG', color: 'var(--ig)', url: h => `https://www.instagram.com/${h}/` },
+  tiktok:    { label: 'TikTok', short: 'TikTok', color: 'var(--tiktok)', url: h => `https://www.tiktok.com/@${h}` },
+  youtube:   { label: 'YouTube', short: 'YouTube', color: 'var(--youtube)', url: h => /^UC[\w-]{22}$/.test(h) ? `https://www.youtube.com/channel/${h}` : `https://www.youtube.com/@${h}` },
+  x:         { label: 'X', short: 'X', color: 'var(--x)', url: h => `https://x.com/${h}` },
+  facebook:  { label: 'Facebook', short: 'FB', color: 'var(--facebook)', url: h => `https://www.facebook.com/${h}` },
+};
+const SRC_LABEL = { api: 'ดึงอัตโนมัติ', manual: 'กรอกเอง', previous: 'ตัวเลขล่าสุดที่มี' };
+
+const state = { platform: 'all', category: '', query: '', open: null, range: 30 };
+try { const p = localStorage.getItem('fb-platform'); if (p && PLAT[p]) state.platform = p; } catch {}
+
+let latest, history = { platforms: [], days: {} }, dates = [];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// ---------- number & date formatting ----------
+function trim0(s) { return s.replace(/\.0+$/, '').replace(/(\.\d*?)0+$/, '$1'); }
+function compact(n) {
+  if (n == null) return '–';
+  const a = Math.abs(n);
+  if (a >= 1e6) return trim0((n / 1e6).toFixed(a >= 1e8 ? 0 : a >= 1e7 ? 1 : 2)) + ' ล้าน';
+  if (a >= 1e3) return trim0((n / 1e3).toFixed(a >= 1e5 ? 0 : 1)) + 'K';
+  return String(Math.round(n));
+}
+const full = n => n == null ? '–' : n.toLocaleString('th-TH');
+const signed = n => (n > 0 ? '+' : n < 0 ? '−' : '') + compact(Math.abs(n));
+const thDate = (iso, opts = { dateStyle: 'long' }) => new Date(iso.length === 10 ? iso + 'T00:00:00+07:00' : iso).toLocaleDateString('th-TH', { timeZone: 'Asia/Bangkok', ...opts });
+const thTime = iso => new Date(iso).toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok', hour: '2-digit', minute: '2-digit' });
+
+// ---------- data helpers ----------
+function pick(arr, plat) {
+  if (!arr) return null;
+  if (plat === 'all') { const v = arr.filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) : null; }
+  return arr[history.platforms.indexOf(plat)] ?? null;
+}
+function currentValue(p, plat) {
+  const arr = latest.platforms.map(k => p.counts[k]);
+  if (plat === 'all') { const v = arr.filter(x => x != null); return v.length ? v.reduce((a, b) => a + b, 0) : null; }
+  return p.counts[plat] ?? null;
+}
+const valueOn = (date, id, plat) => pick(history.days[date]?.[id], plat);
+function dateBefore(days) {
+  const target = new Date(new Date(latest.date + 'T00:00:00Z') - days * 864e5).toISOString().slice(0, 10);
+  for (let i = dates.length - 1; i >= 0; i--) if (dates[i] <= target) return dates[i];
+  return null;
+}
+function series(id, plat, n) {
+  const ds = n ? dates.slice(-n) : dates;
+  return ds.map(d => ({ d, v: valueOn(d, id, plat) })).filter(x => x.v != null);
+}
+function initials(p) {
+  const src = (p.name_en || p.name).replace(/\(.*?\)/g, '').trim();
+  const parts = src.split(/\s+/).filter(Boolean);
+  return (parts.length > 1 && p.name_en ? parts[0][0] + parts[1][0] : [...src][0] || '?').toUpperCase();
+}
+
+// ---------- rendering ----------
+function rows() {
+  const plat = state.platform;
+  const past = dateBefore(7);
+  let pool = latest.people.filter(p => !state.category || p.category === state.category);
+  const scored = pool.map(p => ({ p, v: currentValue(p, plat), pv: past ? valueOn(past, p.id, plat) : null })).filter(r => r.v != null);
+  scored.sort((a, b) => b.v - a.v);
+  const pastRank = new Map([...scored].filter(r => r.pv != null).sort((a, b) => b.pv - a.pv).map((r, i) => [r.p.id, i + 1]));
+  scored.forEach((r, i) => { r.rank = i + 1; r.prevRank = past ? pastRank.get(r.p.id) ?? null : undefined; });
+  const q = state.query.trim().toLowerCase();
+  return { all: scored, shown: q ? scored.filter(r => [r.p.name, r.p.name_en, ...Object.values(r.p.handles)].join(' ').toLowerCase().includes(q)) : scored };
+}
+
+function moveCell(r) {
+  if (r.prevRank === undefined) return '<span class="move same">–</span>';
+  if (r.prevRank === null) return '<span class="move new">ใหม่</span>';
+  const d = r.prevRank - r.rank;
+  if (d > 0) return `<span class="move up" title="ขึ้น ${d} อันดับ">▲${d}</span>`;
+  if (d < 0) return `<span class="move down" title="ลง ${-d} อันดับ">▼${-d}</span>`;
+  return '<span class="move same" title="อันดับเท่าเดิม">=</span>';
+}
+
+function sparkSVG(pts) {
+  if (pts.length < 2) return '<svg class="spark" aria-hidden="true"></svg>';
+  const w = 100, h = 32, pad = 3;
+  const vs = pts.map(p => p.v), min = Math.min(...vs), max = Math.max(...vs), span = max - min || 1;
+  const xy = pts.map((p, i) => [pad + i * (w - 2 * pad) / (pts.length - 1), h - pad - (p.v - min) / span * (h - 2 * pad)]);
+  const line = xy.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`).join('');
+  const [lx, ly] = xy[xy.length - 1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true">
+    <path d="${line}L${lx},${h}L${pad},${h}Z" fill="var(--accent-soft)" stroke="none"/>
+    <path d="${line}" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="${lx}" cy="${ly}" r="2.4" fill="var(--accent)"/></svg>`;
+}
+
+function renderTabs() {
+  $('tabs').innerHTML = Object.entries(PLAT).map(([k, v]) =>
+    `<button class="tab" data-plat="${k}" aria-pressed="${state.platform === k}"><span class="dot" style="--c:${v.color}"></span>${v.label}</button>`).join('');
+}
+
+function renderHero(all) {
+  const top = all[0];
+  if (!top) { $('hero').innerHTML = ''; $('hero').hidden = true; return; }
+  $('hero').hidden = false;
+  const past = dateBefore(7), pv = past ? valueOn(past, top.p.id, state.platform) : null;
+  const d = pv != null ? top.v - pv : null;
+  $('hero').innerHTML = `
+    <div class="hero-rank">1</div>
+    <div class="hero-label">อันดับ 1 · ${esc(PLAT[state.platform].label)}${state.category ? ' · ' + esc(state.category) : ''}</div>
+    <div class="hero-name">${esc(top.p.name)}</div>
+    <div class="hero-count"><span class="num" title="${full(top.v)}">${full(top.v)}</span>
+      ${d != null ? `<span class="${d > 0 ? 'pos' : d < 0 ? 'neg' : 'zero'}">${signed(d)} ใน 7 วัน</span>` : ''}
+      ${all[1] ? `<span class="zero">นำอันดับ 2 อยู่ ${compact(top.v - all[1].v)}</span>` : ''}</div>`;
+}
+
+function renderList() {
+  const { all, shown } = rows();
+  renderHero(all);
+  const plat = state.platform, past = dateBefore(7);
+  if (!shown.length) { $('list').innerHTML = `<li class="empty">${state.query ? 'ไม่พบชื่อที่ค้นหา' : 'ยังไม่มีข้อมูลของแพลตฟอร์มนี้'}</li>`; return; }
+  $('list').innerHTML = shown.map(r => {
+    const p = r.p, d = r.pv != null ? r.v - r.pv : null;
+    const pct = d != null && r.pv ? (d / r.pv * 100) : null;
+    const plats = latest.platforms.filter(k => p.counts[k] != null);
+    const open = state.open === p.id;
+    return `<li data-id="${esc(p.id)}">
+      <button class="row-main" aria-expanded="${open}" aria-controls="d-${esc(p.id)}">
+        <span class="rank">${r.rank}</span>
+        ${moveCell(r)}
+        <span class="who"><span class="avatar" aria-hidden="true">${esc(initials(p))}</span>
+          <span class="who-text"><span class="name">${esc(p.name)}</span>
+          <span class="meta">${esc(p.category)}<span class="dots" title="${plats.map(k => PLAT[k].label).join(', ')}">${plats.map(k => `<span class="dot" style="--c:${PLAT[k].color}"></span>`).join('')}</span></span></span></span>
+        <span class="count num" title="${full(r.v)}">${compact(r.v)}</span>
+        <span class="delta num ${d == null ? 'zero' : d > 0 ? 'pos' : d < 0 ? 'neg' : 'zero'}">${d == null ? '–' : signed(d)}<span class="pct">${pct == null ? '' : (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%'}</span></span>
+        <span class="spark-cell">${sparkSVG(series(p.id, plat, 30))}</span>
+      </button>
+      <div class="detail" id="d-${esc(p.id)}" ${open ? '' : 'hidden'}>${open ? detailHTML(p) : ''}</div>
+    </li>`;
+  }).join('');
+  if (state.open) drawChart(state.open);
+}
+
+function detailHTML(p) {
+  const past = dateBefore(7);
+  const trs = latest.platforms.filter(k => p.counts[k] != null || p.handles[k]).map(k => {
+    const h = p.handles[k], v = p.counts[k], pv = past ? valueOn(past, p.id, k) : null;
+    const d = v != null && pv != null ? v - pv : null;
+    const label = `<span class="dot" style="--c:${PLAT[k].color}"></span>${PLAT[k].label}`;
+    const link = h && !latest.sample ? `<a href="${esc(PLAT[k].url(h))}" target="_blank" rel="noopener">${label}</a>` : `<span style="display:inline-flex;align-items:center;gap:7px">${label}</span>`;
+    return `<tr><td>${link}${h ? `<span class="handle">@${esc(h)}</span>` : ''}</td>
+      <td><span class="num">${full(v)}</span><span class="src">${d != null ? `<span class="${d > 0 ? 'pos' : d < 0 ? 'neg' : 'zero'}">${signed(d)}</span> · ` : ''}${SRC_LABEL[p.source?.[k]] || ''}</span></td></tr>`;
+  }).join('');
+  return `<table class="plat-table"><tbody>${trs}</tbody></table>
+    <div class="chart-box">
+      <div class="chart-head"><span>${esc(PLAT[state.platform].label)}</span>
+        <span class="seg" role="group" aria-label="ช่วงเวลา">
+          <button data-range="30" aria-pressed="${state.range === 30}">30 วัน</button>
+          <button data-range="90" aria-pressed="${state.range === 90}">90 วัน</button>
+          <button data-range="0" aria-pressed="${state.range === 0}">ทั้งหมด</button></span></div>
+      <svg class="chart" id="chart-${esc(p.id)}" viewBox="0 0 600 200" role="img" aria-label="กราฟยอดผู้ติดตาม"></svg>
+      <div class="readout num" id="readout-${esc(p.id)}"></div>
+    </div>`;
+}
+
+function drawChart(id) {
+  const svg = document.getElementById('chart-' + id), out = document.getElementById('readout-' + id);
+  if (!svg) return;
+  const pts = series(id, state.platform, state.range);
+  const W = 600, H = 200, L = 64, R = 12, T = 12, B = 26;
+  if (pts.length < 2) {
+    svg.innerHTML = `<text x="${W / 2}" y="${H / 2}" text-anchor="middle">ต้องมีข้อมูลอย่างน้อย 2 วันจึงจะแสดงกราฟ</text>`;
+    out.textContent = ''; return;
+  }
+  const vs = pts.map(p => p.v);
+  let min = Math.min(...vs), max = Math.max(...vs);
+  if (min === max) { min *= 0.99; max *= 1.01; }
+  const padV = (max - min) * 0.08; min -= padV; max += padV;
+  const x = i => L + i * (W - L - R) / (pts.length - 1);
+  const y = v => T + (1 - (v - min) / (max - min)) * (H - T - B);
+  const ticks = [0, 0.5, 1].map(f => min + f * (max - min));
+  const line = pts.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.v).toFixed(1)}`).join('');
+  const lx = x(pts.length - 1), ly = y(pts.at(-1).v);
+  svg.innerHTML = `
+    ${ticks.map(t => `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)" stroke-width="1"/>
+      <text x="${L - 8}" y="${y(t) + 4}" text-anchor="end">${compact(t)}</text>`).join('')}
+    <path d="${line}L${lx},${H - B}L${L},${H - B}Z" fill="var(--accent-soft)" stroke="none" opacity=".8"/>
+    <path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="${lx}" cy="${ly}" r="4" fill="var(--accent)"/>
+    <text x="${L}" y="${H - 6}" text-anchor="start">${thDate(pts[0].d, { day: 'numeric', month: 'short' })}</text>
+    <text x="${W - R}" y="${H - 6}" text-anchor="end">${thDate(pts.at(-1).d, { day: 'numeric', month: 'short' })}</text>
+    <line id="cursor-${esc(id)}" x1="0" x2="0" y1="${T}" y2="${H - B}" stroke="var(--muted)" stroke-dasharray="3 3" visibility="hidden"/>
+    <rect x="${L}" y="${T}" width="${W - L - R}" height="${H - T - B}" fill="transparent" stroke="none" style="cursor:crosshair"/>`;
+  const first = pts[0].v, last = pts.at(-1).v;
+  const summary = `${thDate(pts[0].d, { day: 'numeric', month: 'short' })} → ${thDate(pts.at(-1).d, { day: 'numeric', month: 'short', year: 'numeric' })}: ${signed(last - first)} (${((last - first) / first * 100).toFixed(1)}%)`;
+  out.textContent = summary;
+  const cursor = document.getElementById('cursor-' + id), rect = svg.querySelector('rect');
+  const move = e => {
+    const box = svg.getBoundingClientRect();
+    const sx = (e.clientX - box.left) / box.width * W;
+    const i = Math.max(0, Math.min(pts.length - 1, Math.round((sx - L) / (W - L - R) * (pts.length - 1))));
+    cursor.setAttribute('x1', x(i)); cursor.setAttribute('x2', x(i)); cursor.setAttribute('visibility', 'visible');
+    out.textContent = `${thDate(pts[i].d)} · ${full(pts[i].v)}`;
+  };
+  rect.addEventListener('pointermove', move);
+  rect.addEventListener('pointerleave', () => { cursor.setAttribute('visibility', 'hidden'); out.textContent = summary; });
+}
+
+function renderAll() { renderTabs(); renderList(); }
+
+// ---------- events ----------
+$('tabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-plat]'); if (!b) return;
+  state.platform = b.dataset.plat;
+  try { localStorage.setItem('fb-platform', state.platform); } catch {}
+  renderAll();
+});
+$('category').addEventListener('change', e => { state.category = e.target.value; renderList(); });
+$('search').addEventListener('input', e => { state.query = e.target.value; renderList(); });
+$('list').addEventListener('click', e => {
+  const rb = e.target.closest('[data-range]');
+  if (rb) { state.range = Number(rb.dataset.range); const li = rb.closest('li'); li.querySelectorAll('[data-range]').forEach(b => b.setAttribute('aria-pressed', b === rb)); drawChart(li.dataset.id); return; }
+  const row = e.target.closest('.row-main'); if (!row) return;
+  const id = row.closest('li').dataset.id;
+  state.open = state.open === id ? null : id;
+  renderList();
+});
+
+// ---------- load ----------
+async function load() {
+  try {
+    const [l, h] = await Promise.all([
+      fetch('data/latest.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }),
+      fetch('data/history.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null),
+    ]);
+    latest = l;
+    if (h) history = h;
+    if (!history.platforms?.length) history.platforms = latest.platforms;
+    dates = Object.keys(history.days || {}).sort();
+    $('stamp').innerHTML = `อัปเดตล่าสุด <b>${thDate(latest.updated_at)}</b><br>${thTime(latest.updated_at)} น. · ${latest.people.length} คน`;
+    $('sample-note').hidden = !latest.sample;
+    const cats = [...new Set(latest.people.map(p => p.category))].sort((a, b) => a.localeCompare(b, 'th'));
+    $('category').insertAdjacentHTML('beforeend', cats.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join(''));
+    renderAll();
+  } catch (e) {
+    $('stamp').textContent = '';
+    $('hero').hidden = true;
+    $('list').innerHTML = `<li class="empty">โหลดข้อมูลไม่ได้ ถ้าเปิดไฟล์จากเครื่องโดยตรง ให้เปิดผ่านเว็บเซิร์ฟเวอร์แทน (ดูวิธีใน README)</li>`;
+  }
+}
+load();
+</script>
